@@ -19,10 +19,12 @@ export default function App() {
 
   return (
     <div className="container">
-      <ul class="list-group">
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <span class="badge bg-primary rounded-pill">14</span>
-        </li>
+      <ul className="list-group">
+        {blogTitles.map((title, index) => (
+          <li className="list-group-item d-flex justify-content-between align-items-center"
+            key={index}
+          >{title}</li>
+        ))}
       </ul>
     </div>
   )
