@@ -18,46 +18,60 @@ export default function App() {
 
   const [newTitle, setNewTitle] = useState('')
   const [titles, setTitles] = useState(blogTitles)
+  const [error, setError] = useState(null)
 
   function handleFormSubmit(e) {
     e.preventDefault()
     console.log(newTitle);
 
-    setTitles([...titles, newTitle])
+    if (newTitle.length <= 0) {
+      setError('Error!')
+    }
+    else {
+      setError(null)
 
-    console.log(titles);
+      setTitles([...titles, newTitle])
 
-    setNewTitle('')
+      console.log(titles);
+
+      setNewTitle('')
+    }
+
   }
 
   return (
 
     <>
-      <form onSubmit={handleFormSubmit}>
-        <div className="mb-3">
-          <label htmlFor="" className="form-label">Titolo</label>
-          <input
-            type="text"
-            className="form-control"
-            name="title"
-            id="title"
-            aria-describedby="helpId"
-            placeholder="inserisci il titolo"
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
-          />
-          <small id="helpId" className="form-text text-muted">inserisci un titolo per il blog</small>
-        </div>
-      </form>
 
       <div className="container">
+
+        {error !== null ? (<div className="alert alert-danger">{error}</div>) : ''}
+
+        <form onSubmit={handleFormSubmit}>
+          <div className="mb-3">
+            <label htmlFor="" className="form-label">Titolo</label>
+            <input
+              type="text"
+              className="form-control"
+              name="title"
+              id="title"
+              aria-describedby="helpId"
+              placeholder="inserisci il titolo"
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+            />
+            <small id="helpId" className="form-text text-muted">inserisci un titolo per il blog</small>
+          </div>
+        </form>
+
         <ul className="list-group">
-          {blogTitles.map((title, index) => (
+          {titles.map((title, index) => (
             <li className="list-group-item d-flex justify-content-between align-items-center"
               key={index}
             >{title}</li>
           ))}
         </ul>
+
       </div>
     </>
 
